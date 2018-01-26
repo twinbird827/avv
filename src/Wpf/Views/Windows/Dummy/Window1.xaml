@@ -1,0 +1,155 @@
+﻿<Window x:Class="Avv.Wpf.Views.Windows.Dummy.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Avv.Wpf.Views.Windows.Dummy"
+        xmlns:vm="clr-namespace:Avv.Wpf.ViewModels"
+        mc:Ignorable="d"
+        Title="Window1" Height="300" Width="600">
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
+
+    <Window.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../../ResourceDictionarys/TreeViewItemResourceDictionary.xaml" />
+
+            </ResourceDictionary.MergedDictionaries>
+
+            <!-- 
+                  This template applies an AllCustomersView to an instance 
+                  of the AllCustomersViewModel class shown in the main window.
+                  -->
+            <DataTemplate DataType="{x:Type vm:SearchByWordViewModel}">
+                <local:UserControl1 />
+            </DataTemplate>
+
+            <!-- 
+                  This template applies a CustomerView to an instance  
+                  of the CustomerViewModel class shown in the main window.
+                  -->
+            <DataTemplate DataType="{x:Type vm:RankingViewModel}">
+                <local:UserControl2 />
+            </DataTemplate>
+
+        </ResourceDictionary>
+
+    </Window.Resources>
+    <i:Interaction.Triggers>
+
+        <!--WindowのContentRenderedイベントのタイミングでViewModelのInitializeメソッドが呼ばれます-->
+        <i:EventTrigger EventName="ContentRendered">
+            <ei:CallMethodAction TargetObject="{Binding}" MethodName="Initialize" />
+        </i:EventTrigger>
+
+        <!--Windowが閉じたタイミングでViewModelのDisposeメソッドが呼ばれます-->
+        <i:EventTrigger EventName="Closed">
+            <ei:CallMethodAction TargetObject="{Binding}" MethodName="Dispose" />
+        </i:EventTrigger>
+
+        <!--WindowのCloseキャンセル処理に対応する場合は、WindowCloseCancelBehaviorの使用を検討してください-->
+
+    </i:Interaction.Triggers>
+
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="361"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <TreeView Grid.Column="0" ItemsSource="{Binding MenuItems}">
+            <TreeView.Resources>
+                <HierarchicalDataTemplate  DataType="{x:Type vm:MenuItemViewModel}" ItemsSource="{Binding Children}">
+                    <Border BorderBrush="Silver" BorderThickness="1" Margin="0.5" Padding="2">
+                        <Grid HorizontalAlignment="Stretch">
+                            <Grid.RowDefinitions>
+                                <RowDefinition MinHeight="32"/>
+                                <RowDefinition MinHeight="20"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="200"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Content="{Binding Name}" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                            <Label Grid.Row="1" Grid.Column="0" Content="{Binding Type}" HorizontalAlignment="Stretch" VerticalAlignment="Center"/>
+                            <Button Grid.Row="1" Grid.Column="1" Content="Button" />
+                            <!-- ProgressBar Grid.Row="1" Grid.Column="1" Minimum="0" Maximum="1" Value="100" HorizontalAlignment="Right" Width="100"/-->
+                        </Grid>
+                    </Border>
+                </HierarchicalDataTemplate>
+                <!--
+                <HierarchicalDataTemplate  DataType="{x:Type vm:MenuItemViewModel}" ItemsSource="{Binding Children}">
+                    <Button HorizontalContentAlignment="Left" IsEnabled="{Binding IsEnable}">
+                        <i:Interaction.Triggers>
+                            <!- Clickｲﾍﾞﾝﾄをﾄﾘｶﾞにして画面遷移を実装する。 ->
+                            <i:EventTrigger EventName="Click">
+                                <ei:CallMethodAction TargetObject="{Binding}" MethodName="OnClicked" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <StackPanel>
+                            <TextBlock Text="{Binding Name}" />
+                            <TextBlock Text="{Binding Type}" />
+                        </StackPanel>
+                    </Button>
+                </HierarchicalDataTemplate>
+                <HierarchicalDataTemplate  DataType="{x:Type vm:MenuItemByFavoriteViewModel}" ItemsSource="{Binding Children}">
+                    <StackPanel Orientation="Horizontal">
+                        <Button HorizontalContentAlignment="Left" IsEnabled="{Binding IsEnable}">
+                            <i:Interaction.Triggers>
+                                <!- Clickｲﾍﾞﾝﾄをﾄﾘｶﾞにして画面遷移を実装する。 ->
+                                <i:EventTrigger EventName="Click">
+                                    <ei:CallMethodAction TargetObject="{Binding}" MethodName="OnClicked" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Name}" />
+                                <TextBlock Text="{Binding Type}" />
+                            </StackPanel>
+                        </Button>
+                        <Button>
+                            <i:Interaction.Triggers>
+                                <!- Clickｲﾍﾞﾝﾄをﾄﾘｶﾞにして画面遷移を実装する。 ->
+                                <i:EventTrigger EventName="Click">
+                                    <ei:CallMethodAction TargetObject="{Binding}" MethodName="Rename" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <StackPanel>
+                                <TextBlock Text="Rename" />
+                            </StackPanel>
+                        </Button>
+                        <Button>
+                            <i:Interaction.Triggers>
+                                <!- Clickｲﾍﾞﾝﾄをﾄﾘｶﾞにして画面遷移を実装する。 ->
+                                <i:EventTrigger EventName="Click">
+                                    <ei:CallMethodAction TargetObject="{Binding}" MethodName="AddChildren" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <StackPanel>
+                                <TextBlock Text="Add" />
+                            </StackPanel>
+                        </Button>
+                        <Button>
+                            <i:Interaction.Triggers>
+                                <!- Clickｲﾍﾞﾝﾄをﾄﾘｶﾞにして画面遷移を実装する。 ->
+                                <i:EventTrigger EventName="Click">
+                                    <ei:CallMethodAction TargetObject="{Binding}" MethodName="RemoveChildren" />
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                            <StackPanel>
+                                <TextBlock Text="Del" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+                -->
+            </TreeView.Resources>
+        </TreeView>
+        <ContentControl Grid.Column="1" Content="{Binding Current}" />
+    </Grid>
+
+</Window>
