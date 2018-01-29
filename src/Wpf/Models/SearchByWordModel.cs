@@ -1,4 +1,5 @@
 ﻿using Avv.Apps.Commons;
+using Avv.Apps.Parameters;
 using Avv.Wpf.Views.Services;
 using StatefulModel;
 using System;
@@ -55,12 +56,12 @@ namespace Avv.Wpf.Models
         {
             Items.Clear();
 
-            string targets = IsTag ? "tagsExact" : "title,description,tags";
+            string targets = IsTag ? Variables.Instance.SearchByWord.TargetTag : Variables.Instance.SearchByWord.TargetKeyword;
             string q = HttpUtil.ToUrlEncode(Word);
-            string fields = "contentId,title,description,tags,categoryTags,viewCounter,mylistCounter,commentCounter,startTime,lastCommentTime,lengthSeconds,thumbnailUrl,communityIcon";
+            string fields = Variables.Instance.SearchByWord.Fields;
             string offset = Offset.ToString();
             string limit = Limit.ToString();
-            string context = "kaz.server-on.net/v2";
+            string context = Variables.Instance.SearchByWord.Context;
             string sort = SortModel.Instance.SelectedItem.Keyword;
             string url = $"http://api.search.nicovideo.jp/api/v2/video/contents/search?q={q}&targets={targets}&fields={fields}&_sort={sort}&_offset={offset}&_limit={limit}&_context={context}";
             string txt = GetSmileVideoHtmlText(url);

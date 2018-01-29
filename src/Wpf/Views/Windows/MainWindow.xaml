@@ -8,6 +8,7 @@
         xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Avv.Wpf.Views.Windows.Dummy"
+        xmlns:pages="clr-namespace:Avv.Wpf.Views.Pages"
         xmlns:vm="clr-namespace:Avv.Wpf.ViewModels"
         mc:Ignorable="d"
 
@@ -31,10 +32,25 @@
 
     <Window.Resources>
         <ResourceDictionary>
+
             <ResourceDictionary.MergedDictionaries>
                 <!-- TreeViewItemを幅いっぱいまで伸ばすためのResourceDictionary -->
                 <ResourceDictionary Source="../ResourceDictionarys/TreeViewItemResourceDictionary.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
+            <!-- -->
+            <DataTemplate DataType="{x:Type vm:SearchByWordViewModel}">
+                <local:UserControl1 />
+            </DataTemplate>
+
+            <!-- 
+                  This template applies a CustomerView to an instance  
+                  of the CustomerViewModel class shown in the main window.
+                  -->
+            <DataTemplate DataType="{x:Type vm:RankingViewModel}">
+                <pages:SearchByWordPage />
+            </DataTemplate>
+
         </ResourceDictionary>
         
     </Window.Resources>

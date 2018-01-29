@@ -18,7 +18,7 @@ namespace Avv.Apps.Parameters
         /// <summary>
         /// ｺﾝｽﾄﾗｸﾀ
         /// </summary>
-        private HttpRequestConst() : base(Variables.HttpRequestConstPath, ConfigSection) { }
+        private HttpRequestConst() : base(Variables.Instance.HttpRequestConstPath, ConfigSection) { }
 
         /// <summary>
         /// ｺﾝﾌｨｸﾞﾌｧｲﾙにｱｸｾｽするためのｲﾝｽﾀﾝｽ
@@ -47,12 +47,12 @@ namespace Avv.Apps.Parameters
                 // 設定されている場合、複合化して取得する。
                 return string.IsNullOrWhiteSpace(tmp)
                     ? tmp
-                    : Encrypter.DecryptString(tmp, Variables.ApplicationId);
+                    : Encrypter.DecryptString(tmp, Variables.Instance.ApplicationId);
             }
             set
             {
                 // 指定した文字列を暗号化して保存する。
-                Instance["PASSWORD"] = Encrypter.EncryptString(value, Variables.ApplicationId);
+                Instance["PASSWORD"] = Encrypter.EncryptString(value, Variables.Instance.ApplicationId);
             }
         }
 

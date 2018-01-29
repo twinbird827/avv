@@ -64,7 +64,7 @@ namespace Avv.Apps.Commons
             string expression = String.Empty;
             using (Stream responseStream = httpWebResponse.GetResponseStream())
             {
-                StreamReader streamReader = new StreamReader(responseStream, Variables.ResponseEncoding);
+                StreamReader streamReader = new StreamReader(responseStream, Variables.Instance.AppEncoding);
                 expression = streamReader.ReadToEnd();
             }
             return expression;

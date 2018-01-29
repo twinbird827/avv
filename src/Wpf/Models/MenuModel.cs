@@ -22,7 +22,7 @@ namespace Avv.Wpf.Models
                 {
 
                     // ﾓﾃﾞﾙを設定ﾌｧｲﾙから取得する。
-                    _Instance = XmlUtil.ReadXml<MenuModel>(Variables.MenuModelPath);
+                    _Instance = XmlUtil.ReadXml<MenuModel>(Variables.Instance.MenuModelPath);
 
                     if (_Instance == null)
                     {
@@ -76,7 +76,7 @@ namespace Avv.Wpf.Models
             base.OnDisposing();
 
             // ｲﾝｽﾀﾝｽのﾃﾞｰﾀを保存する。
-            XmlUtil.SaveXml(Variables.MenuModelPath, this);
+            XmlUtil.SaveXml(Variables.Instance.MenuModelPath, this);
         }
 
         protected override void OnDisposed()

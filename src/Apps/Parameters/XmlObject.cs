@@ -14,6 +14,11 @@ namespace Avv.Apps.Parameters
 
         public T ManagedObject { get; private set; }
 
+        public XmlObject(string filePath)
+        {
+            FilePath = filePath;
+        }
+
         public void Save()
         {
             var se = new XmlSerializer(typeof(T));

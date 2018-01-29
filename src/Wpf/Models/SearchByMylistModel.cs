@@ -63,24 +63,17 @@ namespace Avv.Wpf.Models
         {
             var url = GetMylistUrl(Word);
 
-            //// TODO
-            url = "http://www.nicovideo.jp/mylist/36253814";
-            //if (url == null)
-            //{
-            //    ServiceFactory.MessageService.ShowError("IDが正しくありません。");
-            //    return;
-            //}
+            if (url == null)
+            {
+                ServiceFactory.MessageService.ShowError("IDが正しくありません。");
+                return;
+            }
 
-            //var txt = GetSmileVideoHtmlText(url);
-            var txt = File.ReadAllText("C:\\Work\\VBNET\\Avv\\新しいテキスト ドキュメント (2).txt");
+            var txt = GetSmileVideoHtmlText(url);
             if (IsError(txt))
             {
                 return;
             }
-
-            // TODO あとで消す。
-            Clipboard.SetText(txt);
-
 
             if (url == HttpRequestConst.MylistDefault)
             {
@@ -103,11 +96,12 @@ namespace Avv.Wpf.Models
                         ContentId = item["video_id"],
                         ViewCounter = item["view_counter"],
                         MylistCounter = item["mylist_counter"],
-                        StartTime = DateTime.Parse(item["update_time"])
+                        StartTime = DateTime.Parse(item["update_time"]),
+                        LengthSeconds = item["length_seconds"]
                     };
 
                     Items.Add(model);
-                    //length_seconds
+                    //
                     //
                     //num_res
                     //
