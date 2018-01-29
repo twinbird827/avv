@@ -1,7 +1,4 @@
-﻿using Avv.Apps.Commons;
-using Avv.Apps.Parameters;
-using MahApps.Metro.Controls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,20 +10,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Avv.Wpf.Views.Windows
+namespace Avv.Wpf.Views.Pages
 {
     /// <summary>
-    /// MainWindow.xaml の相互作用ロジック
+    /// SearchByWordPage.xaml の相互作用ロジック
     /// </summary>
-    public partial class MainWindow : MetroWindow
+    public partial class SearchByWordPage : UserControl
     {
-        public MainWindow()
+        public SearchByWordPage()
         {
             InitializeComponent();
-
-            XmlUtil.SaveXml(".\\lib\\variables.xml", Variables.Instance);
         }
     }
 }

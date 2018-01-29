@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="Avv.Wpf.Views.Pages.SearchByWordPage"
+
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:ei="http://schemas.microsoft.com/expression/2010/interactions"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Avv.Wpf.Views.Pages"
+        xmlns:vm="clr-namespace:Avv.Wpf.ViewModels"
+        mc:Ignorable="d"
+
+        xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal"
+        TextOptions.TextRenderingMode="Auto"
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+             
+        d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <RadioButton x:Name="WordRadioButton" Style="{StaticResource MaterialDesignActionToggleButton}" VerticalAlignment="Stretch" IsChecked="True">W</RadioButton>
+            <RadioButton x:Name="TagRadioButton" Style="{StaticResource MaterialDesignActionToggleButton}" VerticalAlignment="Stretch">T</RadioButton>
+            <materialDesign:Card
+                    Background="{DynamicResource PrimaryHueLightBrush}"
+                    Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"
+                    VerticalAlignment="Stretch"
+                    Margin="5"
+                    Width="70">
+                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock.Style>
+                        <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding ElementName=WordRadioButton, Path=IsChecked}" Value="True">
+                                    <Setter Property="Text" Value="Word" />
+                                </DataTrigger>
+                                <DataTrigger Binding="{Binding ElementName=WordRadioButton, Path=IsChecked}" Value="False">
+                                    <Setter Property="Text" Value="Tag" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </TextBlock.Style>
+                </TextBlock>
+            </materialDesign:Card>
+        </StackPanel>
+        <Grid></Grid>
+    </Grid>
+</UserControl>

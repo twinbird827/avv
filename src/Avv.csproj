@@ -73,8 +73,10 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>dll\System.Windows.Interactivity.dll</HintPath>
@@ -128,6 +130,9 @@
     <Compile Include="Wpf\ViewModels\SearchByWordViewModel.cs" />
     <Compile Include="Wpf\ViewModels\WorkSpaceViewModel.cs" />
     <Compile Include="Wpf\Views\CustomControls\Class1.cs" />
+    <Compile Include="Wpf\Views\Pages\SearchByWordPage.xaml.cs">
+      <DependentUpon>SearchByWordPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Wpf\Views\Services\IMessageService.cs" />
     <Compile Include="Wpf\Views\Services\IUserInputService.cs" />
     <Compile Include="Wpf\Views\Services\ServiceFactory.cs" />
@@ -157,6 +162,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Wpf\Views\Pages\SearchByWordPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Wpf\Views\ResourceDictionarys\TreeViewItemResourceDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -207,7 +216,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Apps\Image\" />
-    <Folder Include="Wpf\Views\Pages\" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
