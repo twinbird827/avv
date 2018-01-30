@@ -21,8 +21,11 @@ namespace Avv.Wpf.Views.Windows.Dummy
     /// </summary>
     public partial class Window1 : Window
     {
+        private bool assemblyLoaded { get; set; }
+
         public Window1()
         {
+            assemblyLoaded = typeof(System.Windows.Interactivity.Interaction) != null;
             InitializeComponent();
 
             var model = new SearchByMylistModel();
