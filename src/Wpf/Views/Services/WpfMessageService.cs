@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MaterialDesignThemes.Wpf;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,7 +12,7 @@ namespace Avv.Wpf.Views.Services
     {
         public void ShowError(string message)
         {
-            MessageBox.Show(message);
+            MessageBox.Show(ServiceUtil.GetActiveWindow(), message);
         }
     }
 }
