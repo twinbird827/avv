@@ -104,8 +104,10 @@
             </materialDesign:DrawerHost.LeftDrawerContent>
 
             <Grid>
-                <!-- ﾜｰｸｽﾍﾟｰｽはｶﾚﾝﾄのViewModel型によって変更する -->
-                <ContentControl Content="{Binding Current}" />
+                <Border BorderBrush="Gray" BorderThickness="1,0,1,1">
+                    <!-- ﾜｰｸｽﾍﾟｰｽはｶﾚﾝﾄのViewModel型によって変更する -->
+                    <ContentControl Content="{Binding Current}" />
+                </Border>
             </Grid>
         </materialDesign:DrawerHost>
     </materialDesign:DialogHost>
