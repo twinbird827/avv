@@ -134,7 +134,7 @@ namespace Avv.Apps.Parameters
 
             public string Context { get; set; } = "kaz.server-on.net/avv";
 
-            public string Url { get; set; } = "http://api.search.nicovideo.jp/api/v2/video/contents/search?q={q}&targets={targets}&fields={fields}&_sort={sort}&_offset={offset}&_limit={limit}&_context={context}";
+            public string Url { get; set; } = "http://api.search.nicovideo.jp/api/v2/video/contents/search?q={0}&targets={1}&fields={2}&_sort={3}&_offset={4}&_limit={5}&_context={6}";
 
         }
         #endregion

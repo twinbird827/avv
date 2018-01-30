@@ -30,7 +30,7 @@ namespace Avv.Wpf.Models
             get { return _IsTag; }
             set { SetProperty(ref _IsTag, value); }
         }
-        private bool _IsTag = default(bool);
+        private bool _IsTag = true;
 
         /// <summary>
         /// ﾘﾐｯﾄ (何件取得するか)
@@ -54,6 +54,12 @@ namespace Avv.Wpf.Models
 
         public override void Reload()
         {
+            if (string.IsNullOrWhiteSpace(Word))
+            {
+                ServiceFactory.MessageService.ShowError("検索ワードが入力されていません。");
+                return;
+            }
+
             Items.Clear();
 
             string targets = IsTag ? Variables.Instance.SearchByWord.TargetTag : Variables.Instance.SearchByWord.TargetKeyword;
@@ -63,7 +69,7 @@ namespace Avv.Wpf.Models
             string limit = Limit.ToString();
             string context = Variables.Instance.SearchByWord.Context;
             string sort = SortModel.Instance.SelectedItem.Keyword;
-            string url = $"http://api.search.nicovideo.jp/api/v2/video/contents/search?q={q}&targets={targets}&fields={fields}&_sort={sort}&_offset={offset}&_limit={limit}&_context={context}";
+            string url = String.Format(Variables.Instance.SearchByWord.Url, q, targets, fields, sort, offset, limit, context);
             string txt = GetSmileVideoHtmlText(url);
 
             if (IsError(txt))
