@@ -20,7 +20,7 @@ namespace Avv.Wpf.Models
             get { return _Items; }
             set { SetProperty(ref _Items, value); }
         }
-        private ObservableSynchronizedCollection<VideoModel> _Items;
+        private ObservableSynchronizedCollection<VideoModel> _Items = new ObservableSynchronizedCollection<VideoModel>();
 
         /// <summary>
         /// Httpﾒｿｯﾄﾞ

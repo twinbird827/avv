@@ -20,37 +20,101 @@
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="{DynamicResource MaterialDesignFont}"
              
-        d:DesignHeight="300" d:DesignWidth="300">
+        d:DesignHeight="300" d:DesignWidth="600">
+
+    <!-- 本WindowのViewModel -->
+    <UserControl.DataContext>
+        <vm:SearchByWordViewModel/>
+    </UserControl.DataContext>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal">
-            <RadioButton x:Name="WordRadioButton" Style="{StaticResource MaterialDesignActionToggleButton}" VerticalAlignment="Stretch" IsChecked="True">W</RadioButton>
-            <RadioButton x:Name="TagRadioButton" Style="{StaticResource MaterialDesignActionToggleButton}" VerticalAlignment="Stretch">T</RadioButton>
-            <materialDesign:Card
+        <!-- ﾍｯﾀﾞ領域 -->
+        <wpf:ColorZone Mode="PrimaryMid" Padding="0">
+            <Grid Margin="3" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150" />
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="200"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <RadioButton x:Name="WordRadioButton" Style="{StaticResource MaterialDesignActionLightToggleButton}" VerticalAlignment="Stretch">W</RadioButton>
+                    <RadioButton x:Name="TagRadioButton" Style="{StaticResource MaterialDesignActionLightToggleButton}" VerticalAlignment="Stretch" IsChecked="{Binding IsTag}">T</RadioButton>
+                    <materialDesign:Card
                     Background="{DynamicResource PrimaryHueLightBrush}"
                     Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"
                     VerticalAlignment="Stretch"
-                    Margin="5"
+                    Margin="3"
                     Width="70">
-                <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center">
-                    <TextBlock.Style>
-                        <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding ElementName=WordRadioButton, Path=IsChecked}" Value="True">
-                                    <Setter Property="Text" Value="Word" />
-                                </DataTrigger>
-                                <DataTrigger Binding="{Binding ElementName=WordRadioButton, Path=IsChecked}" Value="False">
-                                    <Setter Property="Text" Value="Tag" />
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </TextBlock.Style>
-                </TextBlock>
-            </materialDesign:Card>
-        </StackPanel>
-        <Grid></Grid>
+                        <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" Padding="3">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock" BasedOn="{StaticResource {x:Type TextBlock}}">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=WordRadioButton, Path=IsChecked}" Value="True">
+                                            <Setter Property="Text" Value="Word" />
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding ElementName=WordRadioButton, Path=IsChecked}" Value="False">
+                                            <Setter Property="Text" Value="Tag" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                    </materialDesign:Card>
+                </StackPanel>
+                <Grid Grid.Column="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="auto"/>
+                    </Grid.ColumnDefinitions>
+                    <ComboBox Grid.Column="0"
+                          IsEditable="True"
+                          HorizontalAlignment="Stretch"
+                          SelectedValue="{Binding Word}"/>
+                    <Button Grid.Column="1"
+                            Style="{StaticResource MaterialDesignRaisedLightButton}"
+                            Content="検索"
+                            Margin="10,0,0,0"
+                            IsDefault="True" >
+                        <i:Interaction.Triggers>
+                            <!-- Clickｲﾍﾞﾝﾄをﾄﾘｶﾞにして画面遷移を実装する。 -->
+                            <i:EventTrigger EventName="Click">
+                                <ei:CallMethodAction TargetObject="{Binding}" MethodName="OnClicked" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </Button>
+                </Grid>
+                <ComboBox Grid.Column="2"
+                      IsEditable="False"
+                      HorizontalAlignment="Right"
+                      Width="150"
+                      ItemsSource="{Binding SortItems}"
+                      SelectedValue="{Binding SelectedSortItem}"
+                      DisplayMemberPath="Description">
+
+                </ComboBox>
+            </Grid>
+        </wpf:ColorZone>
+        <!-- ﾒｲﾝ領域 -->
+        <Grid Grid.Row="1">
+            <ListView ItemsSource="{Binding Items}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn DisplayMemberBinding="{Binding ThumbnailUrl}" Header="ThumbnailUrl" />
+                        <GridViewColumn DisplayMemberBinding="{Binding Title}" Header="Title" />
+                        <GridViewColumn DisplayMemberBinding="{Binding Description}" Header="Description" />
+                        <GridViewColumn DisplayMemberBinding="{Binding ViewCounter}" Header="ViewCounter" />
+                        <GridViewColumn DisplayMemberBinding="{Binding MylistCounter}" Header="MylistCounter" />
+                        <GridViewColumn DisplayMemberBinding="{Binding CommentCounter}" Header="CommentCounter" />
+                        <GridViewColumn DisplayMemberBinding="{Binding StartTime}" Header="StartTime" />
+                        <GridViewColumn DisplayMemberBinding="{Binding LastCommentTime}" Header="LastCommentTime" />
+                        <GridViewColumn DisplayMemberBinding="{Binding LengthSeconds}" Header="LengthSeconds" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
     </Grid>
 </UserControl>
